@@ -116,9 +116,9 @@
 
 <a id="REQ_IMPL_SUMMARY_STATS"></a>**REQ_IMPL_SUMMARY_STATS**: The algorithm MUST generate summary statistics and aggregate metrics for the entire evaluation.
 
-<a id="REQ_IMPL_VERSION_INFO"></a>REQ_IMPL_VERSION_INFO: The algorithm output report MUST include version information of: 1) the benchmark dataset used, 2) the comparison algorithm version, and 3) a timestamp indicating when the comparison was run.
+<a id="REQ_IMPL_VERSION_INFO"></a>**REQ_IMPL_VERSION_INFO**: The algorithm output report MUST include version information of: 1) the benchmark dataset used, 2) the comparison algorithm version, and 3) a timestamp indicating when the comparison was run.
 
-<a id="REQ_IMPL_LOGGING"></a>REQ_IMPL_LOGGING: The algorithm MUST produce a detailed log file capturing the execution process, including configuration settings used, processing steps, any warnings or errors encountered, and summary of results. This log file MUST be separate from the main output report and should provide sufficient information for debugging and audit purposes.
+<a id="REQ_IMPL_LOGGING"></a>**REQ_IMPL_LOGGING**: The algorithm MUST produce a detailed log file capturing the execution process, including configuration settings used, processing steps, any warnings or errors encountered, and summary of results. This log file MUST be separate from the main output report and should provide sufficient information for debugging and audit purposes.
 
 <a id="REQ_IMPL_VISUALIZATION"></a>**REQ_IMPL_VISUALIZATION**: The algorithm SHOULD generate visualizations of results such as confusion matrices, precision-recall curves, or match distributions.
 
@@ -128,7 +128,7 @@
 
 <a id="REQ_IMPL_EXTENSIBILITY"></a>**REQ_IMPL_EXTENSIBILITY**: The algorithm SHOULD be designed to be extensible for future CWE versions, additional metrics, or enhanced matching techniques.
 
-<a id="REQ_IMPL_SEMVER"></a>REQ_IMPL_SEMVER: The algorithm implementation and its scripts MUST use Semantic Versioning to clearly indicate compatibility and feature changes between releases.
+<a id="REQ_IMPL_SEMVER"></a>**REQ_IMPL_SEMVER**: The algorithm implementation and its scripts MUST use Semantic Versioning to clearly indicate compatibility and feature changes between releases.
 
 ## References
 
