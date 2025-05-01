@@ -91,11 +91,13 @@
 
 ### CVE Info
 
-<a id="REQ_CVEINFO_JSON_5_0"></a>**REQ_CVEINFO_JSON_5_0**: CVE JSON 5.0 is the canonical source for CVE descriptions & references.
+<a id="REQ_CVEINFO_JSON_5_0"></a>**REQ_CVEINFO_JSON_5_0**: https://github.com/CVEProject/cvelistV5 is the canonical source for CVE descriptions & references.
 
 ## JSON Schema
 
 <a id="REQ_SCHEMA_FORMAT"></a>**REQ_SCHEMA_FORMAT**: The dataset MUST conform to the following JSON schema (excerpt):
+
+
 
 ```json
 {
@@ -106,13 +108,10 @@
   "properties": {
     "cve_id":    {"type": "string", "pattern": "^CVE-\\d{4}-\\d{4,}$"},
     "cwe_ids":   {"type": "array", "items": {"type": "string"}, "minItems": 1},
-    "year":      {"type": "integer", "minimum": 1999},
     "description": {"type": "string"},
-    "ref_links": {"type": "array", "items": {"type": "string", "format": "uri"}},
     "ref_summaries": {"type": "array", "items": {"type": "string"}},
     "keyphrases":    {"type": "array", "items": {"type": "string"}},
     "quality_flags": {"type": "array", "items": {"type": "string"}},
-    "provenance":    {"type": "string"}
   }
 }
 ```
@@ -121,15 +120,12 @@
 
 ```json
 {
-  "cve_id": "CVE-2024-21945",
-  "cwe_ids": ["CWE-79"],
-  "year": 2024,
-  "description": "Stored XSS in AcmeCMS 4.2 allows attackers to execute arbitrary JavaScript via the title field…",
-  "ref_links": ["https://nvd.nist.gov/vuln/detail/CVE-2024-21945"],
-  "ref_summaries": ["Vendor advisory 2024‑012"],
-  "keyphrases": ["stored XSS", "user‑supplied input"],
+  "cve_id": "CVE-2024-29009",
+  "cwe_ids": ["CWE-352"],
+  "description": "CWE-352 Cross-Site Request Forgery (CSRF)",
+  "ref_summaries": ["Summary of Reference content goes here"],
+  "keyphrases": ["keyphrases go here"],
   "quality_flags": [],
-  "provenance": "NVD‑API"
 }
 ```
 
