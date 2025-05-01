@@ -47,6 +47,31 @@ Advancing CWE mapping technology, showcasing technology and talent via a leaderb
 
 ## Components
 
+```mermaid
+
+flowchart TD
+    A[Benchmark Dataset] -->|Used as reference| C[Comparison Tool]
+    B[Assignment Tool] -->|Creates dataset to compare| C
+    D[Tool Guidance] -->|Guides implementation of| B
+    E[Comparison Requirements] -->|Guides implementation of| C
+    C -->|Produces results for| F[Leaderboard]
+
+
+
+    classDef document fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef tool fill:#bbf,stroke:#333,stroke-width:2px;
+    classDef output fill:#bfb,stroke:#333,stroke-width:2px;
+    
+    class A,E,D document;
+    class B,C tool;
+    class F output;
+
+    click A "./dataset.md" "View Dataset Requirements"
+    click E "./comparison.md" "View Dataset Requirements"
+    click D "./tool_guidance.md"
+
+````
+
 ### Exploratory Data Analysis 
 1. Shows CWEs used (in published CVEs) by count
 
