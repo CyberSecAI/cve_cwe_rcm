@@ -50,16 +50,16 @@ Advancing CWE mapping technology, showcasing technology and talent via a leaderb
 ```mermaid
 
 flowchart TD
-    A[Benchmark Dataset] -->|Used as gold reference| C[Comparison Tool]
+    A[Benchmark Dataset] -->|Gold reference| C[Comparison Tool]
     B[Assignment Tool] -->|Outputs CWE assignments| H
     D[Tool Guidance] -->|Guides implementation of| B
     E[Comparison Requirements] -->|Guides implementation of| C
     C 
     G[Benchmark Dataset Guidance] -->|Guides implementation of| A[Benchmark Dataset]
-    H[Assigned CWE Dataset] -->|Used as input to evaluate| C[Comparison Tool]
+    H[Assigned CWE Dataset] -->|Dataset to evaluate| C[Evaluation Tool]
 
-    C[Comparison Tool] --> |Outputs| I[Comparison Results]
-    I[Comparison Results]-->|Ranked on| F[Leaderboard]
+    C[Evaluation Tool] --> |Outputs| I[Evaluation Results]
+    I[Evaluation Results]-->|Ranked on| F[Leaderboard]
 
 
     classDef document fill:#f9f,stroke:#333,stroke-width:2px;
