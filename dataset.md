@@ -1,76 +1,97 @@
-# Benchmark Dataset
+# CVE-CWE Root Cause Mapping Dataset Requirements
 
-## Requirements
+This document outlines the requirements for creating a comprehensive benchmark dataset for CVE-CWE Root Cause mapping.
 
+## Table of Contents
 
-### Coverage
+- [CVE-CWE Root Cause Mapping Dataset Requirements](#cve-cwe-root-cause-mapping-dataset-requirements)
+  - [Table of Contents](#table-of-contents)
+  - [Coverage Requirements](#coverage-requirements)
+  - [Quality Requirements](#quality-requirements)
+  - [Data Sources](#data-sources)
+    - [Datasets](#datasets)
+    - [CVE Info](#cve-info)
+  - [JSON Schema](#json-schema)
+    - [Example Record](#example-record)
+    - [Example Directory Layout](#example-directory-layout)
+  - [Validation \& Tests](#validation--tests)
+  - [References](#references)
 
-1. The dataset MUST include 
-   1. all CWEs used in practice i.e. a CWE is used in at least 1 published CVE(s) (~~400)
-   2. all CWEs in [CWE-1003 view](https://cwe.mitre.org/data/definitions/1003.html) (130)
-   3. all CWEs in https://cwe.mitre.org/top25/ from [2019](https://cwe.mitre.org/top25/archive/) to [current 2024 CWE Top 25](https://cwe.mitre.org/top25/index.html) 
-   4. at least 5 entries per CWE (if such CVE examples exist)
-   5. a Balanced subset that has at most 5 entries per CWE
-   6. For a given CWE, CVE Descriptions that are sufficiently different per CVE Description 
-      1. measured quantitatively using fuzzy and semantic similarity against a threshold
-   7. CVEs with multiple CWEs assigned
-      1. as reflected by the Top25 datasets
-   8. CVE Reference Link Content 
-      1. as the raw content as text
-      2. as a summary e.g. https://github.com/CyberSecAI/cve_info_refs
-   9. a LICENSE as agreed by MITRE CWE
-   10. a README
-   11. a documented Maintenance Plan
-   12. change tracking and full history
-       1.  e.g. github
-   13. a documented Validation process / script
-   14. a documented feedback process
-   15. [Semantic Versioning](https://semver.org/)
-2. The dataset SHOULD include 
-   1. All CWEs (~~1000)
-   2. mostly CVEs from recent CVE publication years
-       1.  to reflect current reality
-   3.  the CVE Description Vulnerability KeyPhrases
-       1.  e.g. https://github.com/CyberSecAI/cve_info
-3.  The dataset SHOULD NOT 
-    1.  include CVEs that are Rejected
-        1. At the time of creating the dataset, CVEs should not be REJECTED
-        2. Over time, CVEs in the dataset may become REJECTED, and these should be removed but don't have to be e.g. could be identified / labeled instead
-    2.  include CWEs that are Deprecated, Obsolete, Prohibited
-        1. At the time of creating the dataset, CWEs should not be deprecated or obsolete
-        2. Over time, CWEs in the dataset may become deprecated or obsolete, and these should be removed but don't have to be e.g. could be identified / labeled instead
+## Coverage Requirements
 
+<a id="REQ_COVERAGE_PRACTICAL_CWES"></a>**REQ_COVERAGE_PRACTICAL_CWES**: The dataset MUST include all CWEs used in practice i.e. a CWE is used in at least 1 published CVE(s) (approximately 400).
 
-### Quality
+<a id="REQ_COVERAGE_CWE1003_VIEW"></a>**REQ_COVERAGE_CWE1003_VIEW**: The dataset MUST include all CWEs in [CWE-1003 view](https://cwe.mitre.org/data/definitions/1003.html) (approximately 130).
 
-1. The dataset MUST 
-   1. be known-good 
-      1. i.e. the assigned CWE(s) is correct
-   2. be UTF-8 only 
-   3. have a schema and validator script that is part of the dataset
-   4. include and identify low-quality CVEs 
-      1. a sufficient number of low-info CVEs are labelled such that the results for those CVEs can be isolated to e.g. test for Hallucinations / grounding
-   5. have train/validate/test splits
-2. The dataset SHOULD NOT 
-   1. fix existing typos etc... in the CVEs
+<a id="REQ_COVERAGE_TOP25_CWES"></a>**REQ_COVERAGE_TOP25_CWES**: The dataset MUST include all CWEs in https://cwe.mitre.org/top25/ from [2019](https://cwe.mitre.org/top25/archive/) to [current 2024 CWE Top 25](https://cwe.mitre.org/top25/index.html).
 
+<a id="REQ_COVERAGE_MIN_ENTRIES_PER_CWE"></a>**REQ_COVERAGE_MIN_ENTRIES_PER_CWE**: The dataset MUST include at least 5 entries per CWE (if such CVE examples exist).
 
+<a id="REQ_COVERAGE_BALANCED_SUBSET"></a>**REQ_COVERAGE_BALANCED_SUBSET**: The dataset MUST include a balanced subset that has at most 5 entries per CWE.
+
+<a id="REQ_COVERAGE_DIVERSE_DESCRIPTIONS"></a>**REQ_COVERAGE_DIVERSE_DESCRIPTIONS**: For a given CWE, the dataset MUST include CVE Descriptions that are sufficiently different per CVE Description, measured quantitatively using fuzzy and semantic similarity against a threshold.
+
+<a id="REQ_COVERAGE_MULTIPLE_CWES"></a>**REQ_COVERAGE_MULTIPLE_CWES**: The dataset MUST include CVEs with multiple CWEs assigned, as reflected by the Top25 datasets.
+
+<a id="REQ_COVERAGE_REF_CONTENT_RAW"></a>**REQ_COVERAGE_REF_CONTENT_RAW**: The dataset MUST include CVE Reference Link Content as the raw content in text format.
+
+<a id="REQ_COVERAGE_REF_CONTENT_SUMMARY"></a>**REQ_COVERAGE_REF_CONTENT_SUMMARY**: The dataset MUST include CVE Reference Link Content as a summary (e.g., as in https://github.com/CyberSecAI/cve_info_refs).
+
+<a id="REQ_COVERAGE_LICENSE"></a>**REQ_COVERAGE_LICENSE**: The dataset MUST include a LICENSE as agreed by MITRE CWE.
+
+<a id="REQ_COVERAGE_README"></a>**REQ_COVERAGE_README**: The dataset MUST include a README.
+
+<a id="REQ_COVERAGE_MAINTENANCE_PLAN"></a>**REQ_COVERAGE_MAINTENANCE_PLAN**: The dataset MUST include a documented Maintenance Plan.
+
+<a id="REQ_COVERAGE_CHANGE_TRACKING"></a>**REQ_COVERAGE_CHANGE_TRACKING**: The dataset MUST include change tracking and full history (e.g., via GitHub).
+
+<a id="REQ_COVERAGE_VALIDATION_PROCESS"></a>**REQ_COVERAGE_VALIDATION_PROCESS**: The dataset MUST include a documented Validation process/script.
+
+<a id="REQ_COVERAGE_FEEDBACK_PROCESS"></a>**REQ_COVERAGE_FEEDBACK_PROCESS**: The dataset MUST include a documented feedback process.
+
+<a id="REQ_COVERAGE_SEMVER"></a>**REQ_COVERAGE_SEMVER**: The dataset MUST use [Semantic Versioning](https://semver.org/).
+
+<a id="REQ_COVERAGE_ALL_CWES"></a>**REQ_COVERAGE_ALL_CWES**: The dataset SHOULD include all CWEs (approximately 1000).
+
+<a id="REQ_COVERAGE_RECENT_CVES"></a>**REQ_COVERAGE_RECENT_CVES**: The dataset SHOULD include mostly CVEs from recent CVE publication years to reflect current reality.
+
+<a id="REQ_COVERAGE_KEYPHRASES"></a>**REQ_COVERAGE_KEYPHRASES**: The dataset SHOULD include the CVE Description Vulnerability KeyPhrases (e.g., as in https://github.com/CyberSecAI/cve_info).
+
+<a id="REQ_COVERAGE_NO_REJECTED_CVES"></a>**REQ_COVERAGE_NO_REJECTED_CVES**: The dataset SHOULD NOT include CVEs that are Rejected at the time of creating the dataset. Over time, CVEs in the dataset may become REJECTED, and these should be removed or identified/labeled.
+
+<a id="REQ_COVERAGE_NO_DEPRECATED_CWES"></a>**REQ_COVERAGE_NO_DEPRECATED_CWES**: The dataset SHOULD NOT include CWEs that are Deprecated, Obsolete, or Prohibited at the time of creating the dataset. Over time, CWEs in the dataset may become deprecated or obsolete, and these should be removed or identified/labeled.
+
+## Quality Requirements
+
+<a id="REQ_QUALITY_KNOWN_GOOD"></a>**REQ_QUALITY_KNOWN_GOOD**: The dataset MUST be known-good (i.e., the assigned CWE(s) is correct).
+
+<a id="REQ_QUALITY_UTF8"></a>**REQ_QUALITY_UTF8**: The dataset MUST be UTF-8 only.
+
+<a id="REQ_QUALITY_SCHEMA_VALIDATOR"></a>**REQ_QUALITY_SCHEMA_VALIDATOR**: The dataset MUST have a schema and validator script that is part of the dataset.
+
+<a id="REQ_QUALITY_LOW_QUALITY_CVES"></a>**REQ_QUALITY_LOW_QUALITY_CVES**: The dataset MUST include and identify low-quality CVEs. A sufficient number of low-info CVEs are labeled such that the results for those CVEs can be isolated to e.g., test for hallucinations/grounding.
+
+<a id="REQ_QUALITY_DATA_SPLITS"></a>**REQ_QUALITY_DATA_SPLITS**: The dataset MUST have train/validate/test splits.
+
+<a id="REQ_QUALITY_PRESERVE_ISSUES"></a>**REQ_QUALITY_PRESERVE_ISSUES**: The dataset SHOULD NOT fix existing typos or other issues in the CVEs.
 
 ## Data Sources
 
 ### Datasets
 
-1. Top25 2023 (~~7K)
-2. Top25 2022 (~~7K)
-3. CWE Observed Examples (~~3K) should NOT be used
-   1. many examples are pre-2010 and worded differently from modern CVE descriptions
+<a id="REQ_DATASRC_TOP25_2023"></a>**REQ_DATASRC_TOP25_2023**: The dataset SHOULD use Top25 2023 (approximately 7K entries) as a source.
 
+<a id="REQ_DATASRC_TOP25_2022"></a>**REQ_DATASRC_TOP25_2022**: The dataset SHOULD use Top25 2022 (approximately 7K entries) as a source.
+
+<a id="REQ_DATASRC_NO_OBSERVED_EXAMPLES"></a>**REQ_DATASRC_NO_OBSERVED_EXAMPLES**: The dataset SHOULD NOT use CWE Observed Examples (approximately 3K) as many examples are pre-2010 and worded differently from modern CVE descriptions.
 
 ### CVE Info
-1. CVE JSON 5.0 is the canonical source for CVE descriptions & references.
 
+<a id="REQ_CVEINFO_JSON_5_0"></a>**REQ_CVEINFO_JSON_5_0**: CVE JSON 5.0 is the canonical source for CVE descriptions & references.
 
-## JSON Schema (excerpt)
+## JSON Schema
+
+<a id="REQ_SCHEMA_FORMAT"></a>**REQ_SCHEMA_FORMAT**: The dataset MUST conform to the following JSON schema (excerpt):
 
 ```json
 {
@@ -93,6 +114,7 @@
 ```
 
 ### Example Record
+
 ```json
 {
   "cve_id": "CVE-2024-21945",
@@ -107,11 +129,12 @@
 }
 ```
 
-### Directory Layout
+### Example Directory Layout
+
 ```bash
 top_level
-  ├─ full.jsonl            # 1 CVE/line – gold labels
-  ├─ schema.json           # JSON Schema (Draft 2020‑12)
+  ├─ full.jsonl            # 1 CVE/line – gold labels
+  ├─ schema.json           # JSON Schema (Draft 2020‑12)
   ├─ scripts/
   │    ├─ fetch.py         # pull raw NVD entries
   │    ├─ clean.py         # transform → schema, keyphrases, de‑dup
@@ -121,13 +144,16 @@ top_level
   ├─ LICENSE
   ├─ Feedback.md
   └─ MaintenancePlan.md
+```
 
-````
+## Validation & Tests
 
+<a id="REQ_VALIDATION_SCHEMA"></a>**REQ_VALIDATION_SCHEMA**: JSON schema validation must pass with schema.json.
 
-Validation & Tests
-1. jsonschema validation must pass with schema.json.
-2. Validates the dataset against the requirements
-2. Print basic stats (token lengths, keyphrase counts).
-### References
-1. https://www.rfc-editor.org/rfc/rfc2119 for definitions of "SHOULD", "MUST",...
+<a id="REQ_VALIDATION_REQUIREMENTS"></a>**REQ_VALIDATION_REQUIREMENTS**: The dataset must be validated against the requirements.
+
+<a id="REQ_VALIDATION_STATISTICS"></a>**REQ_VALIDATION_STATISTICS**: Basic statistics (token lengths, keyphrase counts) must be generated.
+
+## References
+
+1. [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) for definitions of "SHOULD", "MUST", etc.
