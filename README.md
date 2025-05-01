@@ -66,9 +66,9 @@ flowchart TD
     class B,C tool;
     class F output;
 
-    click A "./dataset.md" "View Dataset Requirements"
-    click E "./comparison.md" "View Dataset Requirements"
-    click D "./tool_guidance.md"
+    click A "https://github.com/CyberSecAI/cve_cwe_rcm/blob/main/dataset.md" "View Dataset Requirements"
+    click E "https://github.com/CyberSecAI/cve_cwe_rcm/blob/main/comparison.md" "View Dataset Requirements"
+    click D "https://github.com/CyberSecAI/cve_cwe_rcm/blob/main/tool_guidance.md" "View Dataset Requirements"
 
 ````
 
