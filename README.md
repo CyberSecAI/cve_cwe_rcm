@@ -59,6 +59,7 @@ See [dataset requirements](dataset.md) that defines characteristics that address
 See [comparison requirements](comparison.md).
 
 ### Guidance on Implementing Tools
+
 1. Based on learnings to date e.g. from the solution presented at VulnCon.
 
 ### Leaderboard

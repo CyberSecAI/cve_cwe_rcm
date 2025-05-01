@@ -63,6 +63,8 @@
 
 <a id="REQ_COVERAGE_NO_DEPRECATED_CWES"></a>**REQ_COVERAGE_NO_DEPRECATED_CWES**: The dataset SHOULD NOT include CWEs that are Deprecated, Obsolete, or Prohibited at the time of creating the dataset. Over time, CWEs in the dataset may become deprecated or obsolete, and these should be removed or identified/labeled.
 
+<a id="REQ_COVERAGE_TOOL_AGNOSTIC"></a>**REQ_COVERAGE_TOOL_AGNOSTIC**: The dataset MUST be tool/solution agnostic. E.g. it MUST NOT include prompts per https://huggingface.co/datasets/AI4Sec/cti-bench/viewer/cti-rcm?views%5B%5D=cti_rcm&row=1
+
 ## Quality Requirements
 
 <a id="REQ_QUALITY_KNOWN_GOOD"></a>**REQ_QUALITY_KNOWN_GOOD**: The dataset MUST be known-good (i.e., the assigned CWE(s) is correct).
