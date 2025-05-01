@@ -118,6 +118,8 @@
 
 <a id="REQ_IMPL_VERSION_INFO"></a>REQ_IMPL_VERSION_INFO: The algorithm output report MUST include version information of: 1) the benchmark dataset used, 2) the comparison algorithm version, and 3) a timestamp indicating when the comparison was run.
 
+<a id="REQ_IMPL_LOGGING"></a>REQ_IMPL_LOGGING: The algorithm MUST produce a detailed log file capturing the execution process, including configuration settings used, processing steps, any warnings or errors encountered, and summary of results. This log file MUST be separate from the main output report and should provide sufficient information for debugging and audit purposes.
+
 <a id="REQ_IMPL_VISUALIZATION"></a>**REQ_IMPL_VISUALIZATION**: The algorithm SHOULD generate visualizations of results such as confusion matrices, precision-recall curves, or match distributions.
 
 <a id="REQ_IMPL_DOCUMENTABILITY"></a>**REQ_IMPL_DOCUMENTABILITY**: The algorithm MUST be well-documented, with clear explanations of all metrics, weighting schemes, and decision processes.
