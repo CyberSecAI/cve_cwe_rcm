@@ -70,12 +70,12 @@ flowchart TD
     class B,C,F tool;
     class A,H,I data;
 
-
-
-````
     click A "https://github.com/CyberSecAI/cve_cwe_rcm/blob/main/dataset.md" "View Dataset Requirements"
     click E "https://github.com/CyberSecAI/cve_cwe_rcm/blob/main/comparison.md" "View Dataset Requirements"
     click D "https://github.com/CyberSecAI/cve_cwe_rcm/blob/main/tool_guidance.md" "View Dataset Requirements"
+
+````
+
 ### Exploratory Data Analysis 
 1. Shows CWEs used (in published CVEs) by count
 
