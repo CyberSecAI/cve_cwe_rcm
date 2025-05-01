@@ -1,6 +1,7 @@
 # CVE-CWE Root Cause Mapping Dataset Requirements
 
-This document outlines the requirements for creating a comprehensive benchmark dataset for CVE-CWE Root Cause mapping.
+> [!TIP]
+> This document outlines the requirements for creating a comprehensive benchmark dataset for CVE-CWE Root Cause mapping.
 
 ## Table of Contents
 

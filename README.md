@@ -20,11 +20,11 @@ To reflect CWE assignment by CWE experts (MITRE CWE Top 25). This includes the R
 
 ## Vision
 **The** CVE CWE Root Cause Mapping Benchmark
-1. that allows measurement and improvement of tools/processes to address the CVE-CWE Quality issues: from ChatBots to Bulk assignment/validation.
-2. used by industry and academia
-3. endorsed by MITRE CWE as being fit for purpose
-4. that a Leaderboard is based on where people showcase their tools and talent against the CVE CWE Root Cause Mapping Benchmark
-5. that promotes doing the right thing e.g. using the Reference content, and additional CVE info to do CWE mapping
+1. allows measurement and improvement of tools/processes to address the CVE-CWE Quality issues: from ChatBots to Bulk assignment/validation.
+2. is used by industry and academia
+3. is endorsed by MITRE CWE as being fit for purpose
+4. has an associated Leaderboard where people showcase their tools and talent against the CVE CWE Root Cause Mapping Benchmark
+5. promotes doing the right thing e.g. using the Reference content, and additional CVE info to do CWE mapping
 6. reflects real world usage
 
 ---
@@ -53,15 +53,10 @@ To reflect CWE assignment by CWE experts (MITRE CWE Top 25). This includes the R
 1. Shows CWEs used (in published CVEs) by count
 
 ### Benchmark Dataset
-1. See [dataset requirements](dataset.md) that defines characteristics that address [Limitations](https://cybersecai.github.io/cti_models/cyber_security_models/#limitations) of existing RCM datasets.
+See [dataset requirements](dataset.md) that defines characteristics that address [Limitations](https://cybersecai.github.io/cti_models/cyber_security_models/#limitations) of existing RCM datasets.
 
 ### Benchmark Comparison Algorithm
-1. Define algorithm that supports comparison of CVE-CWEs where there are:
-   - degrees of matching e.g. exact match, direct ChildOf/ParentOf, indirect ChildOf/ParentOf, Cousin,...
-   - more than 1 CWE in the benchmark and assigned CWEs
-   - comparison by Abstraction
-   - Metrics e.g. Balanced Accuracy, Precision, Recall, F1 Score, Exact Match Rate, At Least One Match Rate
-   - Grounding / Hallucination included? e.g. very low info CVEs
+See [comparison requirements](comparison.md).
 
 ### Guidance on Implementing Tools
 1. Based on learnings to date e.g. from the solution presented at VulnCon.
