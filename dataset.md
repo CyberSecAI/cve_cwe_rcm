@@ -115,6 +115,7 @@ top_level
   ├─ scripts/
   │    ├─ fetch.py         # pull raw NVD entries
   │    ├─ clean.py         # transform → schema, keyphrases, de‑dup
+  │    ├─ benchmark.py     # benchmarks a dataset against the benchmark
   │    └─ utils.py         # shared helpers (similarity, hashing)
   ├─ README.md
   ├─ LICENSE

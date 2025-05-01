@@ -1,13 +1,22 @@
 ## Why
 
 ### Background
-Accurate CVE-CWE Root Cause Mapping facilitates trend analysis, investment prioritization, exploitability insights, and SDLC feedback. 
+Accurate CVE-CWE Root Cause Mapping (RCM) facilitates trend analysis, investment prioritization, exploitability insights, and SDLC feedback. 
+
+Per [Vulnerability Root Cause Mapping with CWE: Challenges, Solutions, and Insights from Grounded LLM-based Analysis](https://www.first.org/conference/vulncon2025/program#pVulnerability-Root-Cause-Mapping-with-CWE-Challenges-Solutions-and-Insights-from-Grounded-LLM-based-Analysis), the Value of RCM is that it:
+* Enables vulnerability trend analysis and greater visibility into their patterns over time
+* Illuminates where investments, policy, and practices can address the weaknesses responsible for product vulnerabilities so that they can be eliminated
+* Provides further insight to potential “exploitability” based on weakness type
+* Provides valuable feedback loop into an SDLC or architecture design planning
+
 But there are known mapping quality issues.
 
 ### Purpose
 To address CVE-CWE Root Cause Mapping Quality issues by enabling a Benchmark dataset and Leaderboard that allows sharing of common measurements and improvement of tools/technology.
 
 Advancing CWE mapping technology, showcasing technology and talent via a leaderboard based on the benchmark, and ultimately improving CVE-CWE data quality for us all!
+
+To reflect CWE assignment by CWE experts (MITRE CWE Top 25). This includes the Root Cause CWE and other CWEs for a given CVE.
 
 ### Vision
 **The** CVE CWE Root Cause Mapping Benchmark
