@@ -44,11 +44,7 @@ Advancing CWE mapping technology, showcasing technology and talent via a leaderb
 1. Shows CWEs used (in published CVEs) by count
 
 #### Benchmark Dataset
-1. Define characteristics that address [Limitations](https://cybersecai.github.io/cti_models/cyber_security_models/#limitations)
-2. Define the data sources
-3. Define how to validate dataset
-4. How to address potential biases
-5. CVE Data used: Description, Reference Link Content (Summary), Keyphrases,...
+1. See [dataset requirements](dataset.md) that define characteristics that address [Limitations](https://cybersecai.github.io/cti_models/cyber_security_models/#limitations) of existing RCM datasets.
 
 #### Benchmark Comparison Algorithm
 1. Define algorithm that supports comparison of CVE-CWEs where there are:

@@ -21,9 +21,11 @@
    9. a LICENSE as agreed by MITRE CWE
    10. a README
    11. a documented Maintenance Plan
-   12. a documented Validation process / script
-   13. a documented feedback process
-   14. [Semantic Versioning](https://semver.org/)
+   12. change tracking and full history
+       1.  e.g. github
+   13. a documented Validation process / script
+   14. a documented feedback process
+   15. [Semantic Versioning](https://semver.org/)
 2. The dataset SHOULD include 
    1. All CWEs (~~1000)
    2. mostly CVEs from recent CVE publication years
@@ -58,9 +60,9 @@
 
 ### Datasets
 
-2. Top25 2023 (~~7K)
-3. Top25 2022 (~~7K)
-1. CWE Observed Examples (~~3K) should NOT be used
+1. Top25 2023 (~~7K)
+2. Top25 2022 (~~7K)
+3. CWE Observed Examples (~~3K) should NOT be used
    1. many examples are pre-2010 and worded differently from modern CVE descriptions
 
 
@@ -90,7 +92,7 @@
 }
 ```
 
-### Example record
+### Example Record
 ```json
 {
   "cve_id": "CVE-2024-21945",
@@ -105,8 +107,9 @@
 }
 ```
 
+### Directory Layout
 ```bash
-example/
+top_level
   ├─ full.jsonl            # 1 CVE/line – gold labels
   ├─ schema.json           # JSON Schema (Draft 2020‑12)
   ├─ scripts/
