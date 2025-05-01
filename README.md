@@ -53,16 +53,19 @@ To reflect CWE assignment by CWE experts (MITRE CWE Top 25). This includes the R
 1. Shows CWEs used (in published CVEs) by count
 
 ### Benchmark Dataset
+
 See [dataset requirements](dataset.md) that defines characteristics that address [Limitations](https://cybersecai.github.io/cti_models/cyber_security_models/#limitations) of existing RCM datasets.
 
 ### Benchmark Comparison Algorithm
+
 See [comparison requirements](comparison.md).
 
 ### Guidance on Implementing Tools
 
-1. Based on learnings to date e.g. from the solution presented at VulnCon.
+See [tool guidance](tool_guidance.md).
 
 ### Leaderboard
+
 1. Hosting e.g. HuggingFace
 2. Battle format and algorithm e.g. https://huggingface.co/spaces/lmarena-ai/chatbot-arena-leaderboard
 3. UX
