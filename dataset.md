@@ -16,6 +16,7 @@ This document outlines the requirements for creating a comprehensive benchmark d
     - [Example Directory Layout](#example-directory-layout)
   - [Validation \& Tests](#validation--tests)
   - [References](#references)
+  - [ToDo](#todo)
 
 ## Coverage Requirements
 
@@ -157,3 +158,8 @@ top_level
 ## References
 
 1. [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) for definitions of "SHOULD", "MUST", etc.
+
+## ToDo
+1. Define [Known-Good](#REQ_QUALITY_KNOWN_GOOD). Specify the validation standard and process.
+2. Define Quantitative Metrics: Specify thresholds/methods for [sufficiently different](#REQ_COVERAGE_DIVERSE_DESCRIPTIONS)
+3. Define Qualitative Labels: Specify criteria for [low-quality](#REQ_QUALITY_LOW_QUALITY_CVES).
