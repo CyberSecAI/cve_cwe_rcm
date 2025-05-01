@@ -50,28 +50,32 @@ Advancing CWE mapping technology, showcasing technology and talent via a leaderb
 ```mermaid
 
 flowchart TD
-    A[Benchmark Dataset] -->|Used as reference| C[Comparison Tool]
-    B[Assignment Tool] -->|Creates dataset to compare| C
+    A[Benchmark Dataset] -->|Used as gold reference| C[Comparison Tool]
+    B[Assignment Tool] -->|Outputs CWE assignments| H
     D[Tool Guidance] -->|Guides implementation of| B
     E[Comparison Requirements] -->|Guides implementation of| C
-    C -->|Produces results for| F[Leaderboard]
+    C 
+    G[Benchmark Dataset Guidance] -->|Guides implementation of| A[Benchmark Dataset]
+    H[Assigned CWE Dataset] -->|Used as input to evaluate| C[Comparison Tool]
 
+    C[Comparison Tool] --> |Outputs| I[Comparison Results]
+    I[Comparison Results]-->|Ranked on| F[Leaderboard]
 
 
     classDef document fill:#f9f,stroke:#333,stroke-width:2px;
     classDef tool fill:#bbf,stroke:#333,stroke-width:2px;
-    classDef output fill:#bfb,stroke:#333,stroke-width:2px;
+    classDef data fill:#bfb,stroke:#333,stroke-width:2px;
     
-    class A,E,D document;
-    class B,C tool;
-    class F output;
+    class E,D,G document;
+    class B,C,F tool;
+    class A,H,I data;
 
+
+
+````
     click A "https://github.com/CyberSecAI/cve_cwe_rcm/blob/main/dataset.md" "View Dataset Requirements"
     click E "https://github.com/CyberSecAI/cve_cwe_rcm/blob/main/comparison.md" "View Dataset Requirements"
     click D "https://github.com/CyberSecAI/cve_cwe_rcm/blob/main/tool_guidance.md" "View Dataset Requirements"
-
-````
-
 ### Exploratory Data Analysis 
 1. Shows CWEs used (in published CVEs) by count
 
