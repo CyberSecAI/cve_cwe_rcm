@@ -87,8 +87,6 @@ See [dataset requirements](dataset.md) that defines characteristics that address
 
 See [comparison requirements](comparison.md).
 
-See [scoring algorithm example](scoring.md).
-
 ### Guidance on Implementing Tools
 
 See [tool guidance](tool_guidance.md).
