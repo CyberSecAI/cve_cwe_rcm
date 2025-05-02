@@ -88,19 +88,19 @@ Calculate scores as follows:
 
 
 $$
-\text{Recall}_{CVE} = \frac{1}{|\text{Benchmark CWEs}|}\sum_{\text{Benchmark CWEs}} \left(\frac{\sum_{\text{Predictions}} \text{ProximityScore}}{|\text{Predictions}|}\right)
+    \text{Recall}_{CVE} = \frac{1}{|\text{Benchmark CWEs}|}\sum_{\text{Benchmark CWEs}} \left(\frac{\sum_{\text{Predictions}} \text{ProximityScore}}{|\text{Predictions}|}\right)
 $$
 
 - **Precision**:  
 
 $$
-\text{Precision}_{CVE} = \frac{1}{|\text{Predicted CWEs}|}\sum_{\text{Predicted CWEs}} \left(\frac{\sum_{\text{Benchmark CWEs}} \text{ProximityScore}}{|\text{Benchmark CWEs}|}\right)
+    \text{Precision}_{CVE} = \frac{1}{|\text{Predicted CWEs}|}\sum_{\text{Predicted CWEs}} \left(\frac{\sum_{\text{Benchmark CWEs}} \text{ProximityScore}}{|\text{Benchmark CWEs}|}\right)
 $$
 
 - **F1-Score** (Harmonic mean of precision and recall):  
 
 $$
-\text{F1}_{CVE} = \frac{2 \times \text{Precision}_{CVE} \times \text{Recall}_{CVE}}{\text{Precision}_{CVE} + \text{Recall}_{CVE}}
+    \text{F1}_{CVE} = \frac{2 \times \text{Precision}_{CVE} \times \text{Recall}_{CVE}}{\text{Precision}_{CVE} + \text{Recall}_{CVE}}
 $$
 
 
