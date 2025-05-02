@@ -1,4 +1,8 @@
-# Scoring_formula
+# Scoring Algorithm
+
+The scoring algorithm should be based on the CWE graph, and moreover reinforce good mapping behavior.
+
+
 
 ## Data Points
 A CVE can have one or more CWEs i.e. it's a multi-label classification problem.
@@ -8,6 +12,8 @@ The RelatedNatureEnumerations form a (view-dependent e.g. CWE-1003) graph of
 - 1309 ChildOf/ParentOf
 - 141 CanPrecede/CanFollow
 - 13 Requires/RequiredBy
+
+
 
 ---
 
