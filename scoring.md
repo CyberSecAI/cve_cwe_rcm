@@ -87,15 +87,15 @@ Calculate scores as follows:
 - **Recall**:  
 
 
-$$
+    $$
     \text{Recall}_{CVE} = \frac{1}{|\text{Benchmark CWEs}|}\sum_{\text{Benchmark CWEs}} \left(\frac{\sum_{\text{Predictions}} \text{ProximityScore}}{|\text{Predictions}|}\right)
-$$
+    $$
 
 - **Precision**:  
 
-$$
+    $$
     \text{Precision}_{CVE} = \frac{1}{|\text{Predicted CWEs}|}\sum_{\text{Predicted CWEs}} \left(\frac{\sum_{\text{Benchmark CWEs}} \text{ProximityScore}}{|\text{Benchmark CWEs}|}\right)
-$$
+    $$
 
 - **F1-Score** (Harmonic mean of precision and recall):  
 
