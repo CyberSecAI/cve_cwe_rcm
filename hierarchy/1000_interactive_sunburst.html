@@ -6,48 +6,32 @@
   <title>CWE Hierarchy Sunburst Diagram</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0; padding: 20px;
-      background-color: #f5f5f5;
+    body { font-family: Arial; margin:0; padding:20px; background:#f5f5f5; }
+    .container { display:flex; gap:20px; max-width:1600px; margin:0 auto; }
+    .diagram-container, .info-panel {
+      background:white; border-radius:8px; padding:20px;
+      box-shadow:0 2px 4px rgba(0,0,0,0.1);
     }
-    .container {
-      display: flex; gap: 20px;
-      max-width: 1600px; margin: 0 auto;
-    }
-    .diagram-container {
-      background: white; border-radius: 8px;
-      padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      flex: 1;
-    }
+    .diagram-container { flex:1; }
     .info-panel {
-      background: white; border-radius: 8px;
-      padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      width: 400px; height: 800px;
-      overflow-y: auto; position: sticky; top: 20px;
+      width:400px; height:800px; overflow-y:auto;
+      position:sticky; top:20px;
     }
-    h1, h2 { margin-top: 0; color: #333; }
-    .node-info { margin-top: 20px; }
-    .breadcrumb { font-size: 14px; color: #666; margin-bottom: 10px; word-break: break-word; }
-    .cwe-id { font-weight: bold; color: #0066cc; }
-    .cwe-name { font-size: 18px; margin: 10px 0; word-break: break-word; }
-    .cwe-abstraction { color: #666; font-size: 14px; margin-bottom: 10px; }
-    .children-count { font-size: 14px; color: #666; margin-top: 10px; }
-    path { cursor: pointer; stroke: #fff; stroke-width: 1px; }
-    path:hover { opacity: 0.8; }
-    .legend {
-      display: flex; flex-wrap: wrap; gap: 15px;
-      margin-top: 20px; padding: 10px;
-      background: #f8f9fa; border-radius: 4px;
-      justify-content: center;
+    h1,h2 { margin-top:0; color:#333; }
+    .node-info { margin-top:20px; }
+    .breadcrumb { font-size:14px; color:#666; margin-bottom:10px; word-break:break-word; }
+    .cwe-id { font-weight:bold; color:#0066cc; }
+    .cwe-name { font-size:18px; margin:10px 0; word-break:break-word; }
+    .cwe-abstraction, .children-count { font-size:14px; color:#666; }
+    path { cursor:pointer; stroke:#fff; stroke-width:1px; }
+    path:hover { opacity:0.8; }
+    .legend { display:flex; flex-wrap:wrap; gap:15px; margin-top:20px;
+               padding:10px; background:#f8f9fa; border-radius:4px;
+               justify-content:center;
     }
-    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 13px; }
-    .legend-color { width: 16px; height: 16px; border-radius: 3px; }
-    #chart { width: 100%; min-height: 800px; }
-    .center-label {
-      font-size: 14px; font-weight: bold;
-      fill: #666; text-anchor: middle;
-    }
+    .legend-item { display:flex; align-items:center; gap:5px; font-size:13px; }
+    .legend-color { width:16px; height:16px; border-radius:3px; }
+    #chart { width:100%; min-height:800px; }
   </style>
 </head>
 <body>
@@ -60,132 +44,115 @@
     <div class="info-panel">
       <h2>Node Information</h2>
       <div class="node-info">
-        <p>Click or hover on any segment to see details here. Use your mouse wheel (or pinch on touch) to zoom in/out, and drag to pan.</p>
-        <p>The diagram shows 663 CWE (Common Weakness Enumeration) nodes organized hierarchically.</p>
+        <p>Click or hover on any segment to see details here.</p>
+        <p>Use your mouse wheel (or pinch) to zoom, and drag to pan.</p>
       </div>
     </div>
   </div>
 
   <script>
   async function loadData() {
-    try {
-      const res = await fetch('./cwe_complete_hierarchy.json');
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      createSunburst(data);
-    } catch (err) {
-      console.error('Error loading data:', err);
-      alert('Error loading data. Make sure cwe_complete_hierarchy.json is available.');
-    }
+    const res = await fetch('./cwe_complete_hierarchy.json');
+    if (!res.ok) throw new Error(res.status);
+    createSunburst(await res.json());
   }
 
   function createSunburst(data) {
     d3.select("#chart").selectAll("*").remove();
+    const width=900, height=900;
+    const radius=Math.min(width,height)/2-10, innerRadius=radius*0.15;
+    const colorScheme={Pillar:'#e41a1c',Class:'#377eb8',Base:'#4daf4a',Variant:'#984ea3',Compound:'#ff7f00'};
+    const color = d => d.depth===0? '#ddd' : d.data.abstraction ? colorScheme[d.data.abstraction] : '#999';
 
-    const width = 900, height = 900;
-    const radius = Math.min(width, height) / 2 - 10;
-    const innerRadius = radius * 0.15;
-
-    const colorScheme = {
-      'Pillar': '#e41a1c',
-      'Class':  '#377eb8',
-      'Base':   '#4daf4a',
-      'Variant':'#984ea3',
-      'Compound':'#ff7f00'
-    };
-
-    const color = d => {
-      if (d.depth === 0)            return '#ddd';
-      if (!d.data.abstraction)      return '#999';
-      return colorScheme[d.data.abstraction] || '#999';
-    };
-
-    // 1) SVG + group that we'll zoom & pan
     const svg = d3.select("#chart")
       .append("svg")
-      .attr("viewBox", [0, 0, width, height])
-      .style("width", "100%")
-      .style("height", "auto")
-      .style("font", "10px sans-serif");
+      .attr("viewBox",[0,0,width,height])
+      .style("width","100%").style("height","auto");
 
     const g = svg.append("g")
-      .attr("transform", `translate(${width/2},${height/2})`);
+      .attr("transform",`translate(${width/2},${height/2})`);
 
-    // 2) D3 zoom behavior
-    const zoom = d3.zoom()
-      .scaleExtent([0.5, 5])  // min/max zoom
-      .on("zoom", event => {
+    svg.call(d3.zoom()
+      .scaleExtent([0.5,5])
+      .on("zoom", ({transform}) => {
         g.attr("transform",
-          `translate(${event.transform.x + width/2},${event.transform.y + height/2}) ` +
-          `scale(${event.transform.k})`
+          `translate(${transform.x+width/2},${transform.y+height/2}) scale(${transform.k})`
         );
-      });
-    svg.call(zoom);
+      })
+    );
 
-    // 3) Compute partition layout
-    const root = d3.hierarchy(data)
-      .sum(d => (!d.children || d.children.length === 0) ? 1 : 0)
-      .sort((a,b) => b.value - a.value);
-    d3.partition().size([2*Math.PI, 1])(root);
+    const root = d3.partition()
+      .size([2*Math.PI,1])(
+        d3.hierarchy(data)
+          .sum(d=>(!d.children||!d.children.length)?1:0)
+          .sort((a,b)=>b.value-a.value)
+      );
 
-    // 4) Arc generator
     const arc = d3.arc()
-      .startAngle(d => d.x0)
-      .endAngle(d => d.x1)
-      .padAngle(d => Math.min((d.x1-d.x0)/2, 0.005))
-      .padRadius(radius/2)
-      .innerRadius(d => Math.max(innerRadius, d.y0*radius))
-      .outerRadius(d => Math.max(d.y0*radius, d.y1*radius - 1));
+      .startAngle(d=>d.x0).endAngle(d=>d.x1)
+      .padAngle(d=>Math.min((d.x1-d.x0)/2,0.005)).padRadius(radius/2)
+      .innerRadius(d=>Math.max(innerRadius,d.y0*radius))
+      .outerRadius(d=>Math.max(d.y0*radius,d.y1*radius-1));
 
-    // 5) Draw slices
-    const slices = g.append("g")
+    // draw slices
+    g.append("g")
       .selectAll("path")
-      .data(root.descendants().filter(d => d.depth > 0))
+      .data(root.descendants().slice(1))
       .join("path")
-      .attr("fill", color)
-      .attr("d", arc)
-      .style("cursor","pointer")
-      .on("mouseover click", showInfo);
+        .attr("fill", color)
+        .attr("d", arc)
+        .on("mouseover click", showInfo);
 
-    // 6) Draw labels
-    const labels = g.append("g")
+    // draw labels, smaller + pushed out on left side
+    g.append("g")
       .attr("pointer-events","none")
       .attr("text-anchor","middle")
-      .style("user-select","none")
       .selectAll("text")
-      .data(root.descendants().filter(d => d.depth > 0))
+      .data(root.descendants().slice(1))
       .join("text")
-      .attr("dy","0.35em")
-      .attr("transform", d => {
-        const x = (d.x0 + d.x1)/2 * 180/Math.PI;
-        const y = (d.y0 + d.y1)/2 * radius;
-        return `rotate(${x-90}) translate(${y},0) rotate(${x<180?0:180})`;
-      })
-      .text(d => d.data.id ? d.data.id.split(':')[0] : (d.data.name||"").substring(0,30))
-      .on("mouseover click", showInfo);
+        .attr("transform", d => {
+          const angle = (d.x0 + d.x1)/2 * 180/Math.PI;
+          // if on left half, push out 15%
+          const radiusFactor = 1.12 
+          const y = (d.y0 + d.y1)/2 * radius * radiusFactor;
+          return `rotate(${angle-90}) translate(${y},0) rotate(${angle<180?0:180})`;
+        })
+        .attr("font-size", d => {
+          const angle = (d.x0 + d.x1)/2 * 180/Math.PI;
+          return  "4px";
+        })
+        .text(d => d.data.id 
+          ? d.data.id.split(':')[0] 
+          : (d.data.name||"").substring(0,30)
+        )
+        .on("mouseover click", showInfo);
 
-    // 7) Info‐panel updater
-    function showInfo(event, d) {
-      const breadcrumb = d.ancestors().reverse()
-        .map(a => a.data.id||a.data.name||"Root")
-        .join(" > ");
-      let html = `<div class="breadcrumb">${breadcrumb}</div>`;
-      if (d.data.id)         html += `<div class="cwe-id">${d.data.id}</div>`;
-      if (d.data.name)       html += `<div class="cwe-name">${d.data.name}</div>`;
-      if (d.data.abstraction) html += `<div class="cwe-abstraction">Abstraction: ${d.data.abstraction}</div>`;
-      html += `<div class="children-count">${d.children ? `Children: ${d.children.length}` : 'Leaf node'}</div>`;
+    // info‐panel
+    function showInfo(_,d) {
+      const bc = d.ancestors().reverse()
+        .map(a=>a.data.id||a.data.name||"Root").join(" > ");
+      let html = `<div class="breadcrumb">${bc}</div>`;
+      if(d.data.id)       html += `<div class="cwe-id">${d.data.id}</div>`;
+      if(d.data.name)     html += `<div class="cwe-name">${d.data.name}</div>`;
+      if(d.data.abstraction)
+                          html += `<div class="cwe-abstraction">Abstraction: ${d.data.abstraction}</div>`;
+      html += `<div class="children-count">${
+                d.children 
+                  ? `Children: ${d.children.length}`
+                  : 'Leaf node'
+              }</div>`;
       d3.select(".node-info").html(html);
     }
 
-    // 8) Legend
+    // legend
     const legend = d3.select("#legend");
-    Object.entries(colorScheme).forEach(([label, col]) => {
+    Object.entries(colorScheme).forEach(([lbl,col]) => {
       legend.append("div")
         .attr("class","legend-item")
-        .html(`<div class="legend-color" style="background-color:${col}"></div><span>${label}</span>`);
+        .html(`<div class="legend-color" style="background:${col}"></div><span>${lbl}</span>`);
     });
 
-    // initial info
+    // initial
     showInfo(null, root);
   }
 
