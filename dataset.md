@@ -27,6 +27,10 @@
 
 <a id="REQ_COVERAGE_TOP25_CWES"></a>**REQ_COVERAGE_TOP25_CWES**: The dataset MUST include all CWEs in https://cwe.mitre.org/top25/ from [2019](https://cwe.mitre.org/top25/archive/) to [current 2024 CWE Top 25](https://cwe.mitre.org/top25/index.html).
 
+<a id="REQ_COVERAGE_ALL_CWES"></a>**REQ_COVERAGE_ALL_CWES**: The dataset SHOULD include all CWEs (approximately 1000).
+
+<a id="REQ_COVERAGE_RECENT_CVES"></a>**REQ_COVERAGE_RECENT_CVES**: The dataset SHOULD include mostly CVEs from recent CVE publication years to reflect current reality.
+
 <a id="REQ_COVERAGE_MIN_ENTRIES_PER_CWE"></a>**REQ_COVERAGE_MIN_ENTRIES_PER_CWE**: The dataset MUST include at least 5 entries per CWE (if such CVE examples exist).
 
 <a id="REQ_COVERAGE_BALANCED_SUBSET"></a>**REQ_COVERAGE_BALANCED_SUBSET**: The dataset MUST include a balanced subset that has at most 5 entries per CWE.
@@ -52,10 +56,6 @@
 <a id="REQ_COVERAGE_FEEDBACK_PROCESS"></a>**REQ_COVERAGE_FEEDBACK_PROCESS**: The dataset MUST include a documented feedback process.
 
 <a id="REQ_COVERAGE_SEMVER"></a>**REQ_COVERAGE_SEMVER**: The dataset MUST use [Semantic Versioning](https://semver.org/).
-
-<a id="REQ_COVERAGE_ALL_CWES"></a>**REQ_COVERAGE_ALL_CWES**: The dataset SHOULD include all CWEs (approximately 1000).
-
-<a id="REQ_COVERAGE_RECENT_CVES"></a>**REQ_COVERAGE_RECENT_CVES**: The dataset SHOULD include mostly CVEs from recent CVE publication years to reflect current reality.
 
 <a id="REQ_COVERAGE_KEYPHRASES"></a>**REQ_COVERAGE_KEYPHRASES**: The dataset SHOULD include the CVE Description Vulnerability KeyPhrases (e.g., as in https://github.com/CyberSecAI/cve_info).
 
