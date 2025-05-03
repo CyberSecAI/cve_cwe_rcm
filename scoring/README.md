@@ -13,11 +13,7 @@ The RelatedNatureEnumerations form a (view-dependent e.g. CWE-1003) graph of
 - 141 CanPrecede/CanFollow
 - 13 Requires/RequiredBy
 
-MITRE CWE list contains different CWE Views
-Ref "The CWE “View” Methods" https://cwe.mitre.org/documents/cwe_usage/guidance.html
 
-
-CWE Software Assurance Trends View (View-1400) view contains every CWE. CWEs are organized into 22 high-level categories of interest to large-scale software assurance research to support the elimination of weaknesses using tactics such as secure language development. This view is structured with categories at the top level, with a second level of only weaknesses. 
 
 ---
 
