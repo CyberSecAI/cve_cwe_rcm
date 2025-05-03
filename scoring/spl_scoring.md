@@ -87,9 +87,32 @@ $$
         \text{Predicted CWEs P}= \{p_1, p_2, \dots, p_n\}
 $$
 
-Calculate scores as follows:
 
-![Formulas](formulas.png)
+# Evaluation Metrics
+
+## Recall
+
+Evaluate how well benchmark CWEs are covered by predictions:
+
+$$
+\text{Recall}_{CVE} = \frac{1}{|B|} \sum_{b \in B} \left( \frac{\sum_{p \in P} \text{ProximityScore}(b, p)}{|P|} \right)
+$$
+
+## Precision
+
+Evaluate how accurately predictions align with benchmark CWEs:
+
+$$
+\text{Precision}_{CVE} = \frac{1}{|P|} \sum_{p \in P} \left( \frac{\sum_{b \in B} \text{ProximityScore}(p, b)}{|B|} \right)
+$$
+
+## F1-Score
+
+Harmonic mean of precision and recall:
+
+$$
+\text{F1}_{CVE} = \frac{2 \times \text{Precision}_{CVE} \times \text{Recall}_{CVE}}{\text{Precision}_{CVE} + \text{Recall}_{CVE}}
+$$
 
 
 ---
