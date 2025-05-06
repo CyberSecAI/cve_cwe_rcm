@@ -44,7 +44,7 @@ The following Scoring Approaches were considerered
    1. [Path based](./spl_scoring.md) Proposal
    2. [See Critique]((./spl_scoring_critiique.md))
 2. Hierarchical Classification Standards
-   1. [A survey of Hierarchical Classification Standards](scoring/hierarchical_scoring_system.md)
+   1. [A survey of Hierarchical Classification Standards](./hierarchical_scoring_system.md)
    2. [A proposal with Worked Examples](./hcss.md)
 
 **Hierarchical Classification Standards look the most promising.**
