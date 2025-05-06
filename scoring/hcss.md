@@ -297,19 +297,19 @@ We will use the following CWE chains provided (excluding "CWE View 1000 Root"):
     * $|Y_{aug} \cap \hat{Y}_{aug}| = 8$
 
     * Precision (**hP**):
-        $$
-        \frac{| Y_{aug} \cap \hat{Y}_{aug} |}{| \hat{Y}_{aug} |} = \frac{8}{9} \approx 0.889
-        $$
+$$
+\frac{| Y_{aug} \cap \hat{Y}_{aug} |}{| \hat{Y}_{aug} |} = \frac{8}{9} \approx 0.889
+$$
 
     * Recall (**hR**):
-        $$
-        \frac{| Y_{aug} \cap \hat{Y}_{aug} |}{| Y_{aug} |} = \frac{8}{13} \approx 0.615
-        $$
+$$
+\frac{| Y_{aug} \cap \hat{Y}_{aug} |}{| Y_{aug} |} = \frac{8}{13} \approx 0.615
+$$
 
     * F-score (**hF**):
-        $$
-        \frac{2 \times hP \times hR}{(hP + hR)} = \frac{2 \times 0.889 \times 0.615}{(0.889 + 0.615)} = \frac{1.093}{1.504} \approx 0.727
-        $$
+$$
+\frac{2 \times hP \times hR}{(hP + hR)} = \frac{2 \times 0.889 \times 0.615}{(0.889 + 0.615)} = \frac{1.093}{1.504} \approx 0.727
+$$
 
 **Result:** A score of approximately **0.727**. The prediction correctly identified CWE-912 and its ancestors, partially captured CWE-798 by predicting its child (CWE-321) and some shared ancestors, but missed other paths leading to CWE-798 and its specific ancestors on those paths.
 
@@ -351,19 +351,19 @@ We use the following chains (excluding "CWE View 1000 Root"):
     * $|Y_{aug} \cap \hat{Y}_{aug}| = 8$
 
     * Precision (**hP**):
-        $$
-        \frac{| Y_{aug} \cap \hat{Y}_{aug} |}{| \hat{Y}_{aug} |} = \frac{8}{9} \approx 0.889
-        $$
+$$
+\frac{| Y_{aug} \cap \hat{Y}_{aug} |}{| \hat{Y}_{aug} |} = \frac{8}{9} \approx 0.889
+$$
 
     * Recall (**hR**):
-        $$
-        \frac{| Y_{aug} \cap \hat{Y}_{aug} |}{| Y_{aug} |} = \frac{8}{8} = 1.0
-        $$
+$$
+\frac{| Y_{aug} \cap \hat{Y}_{aug} |}{| Y_{aug} |} = \frac{8}{8} = 1.0
+$$
 
     * F-score (**hF**):
-        $$
-        \frac{2 \times hP \times hR}{(hP + hR)} = \frac{2 \times 0.889 \times 1.0}{(0.889 + 1.0)} = \frac{1.778}{1.889} \approx 0.941
-        $$
+$$
+\frac{2 \times hP \times hR}{(hP + hR)} = \frac{2 \times 0.889 \times 1.0}{(0.889 + 1.0)} = \frac{1.778}{1.889} \approx 0.941
+$$
 
 **Result:** A score of approximately **0.941**. Restricting the ancestors of CWE-798 in the benchmark set to a single chain significantly increased the Recall and the overall F-score in this specific example, as the prediction happened to align well with the ancestors on that particular chain. This highlights how the choice of hierarchy representation (e.g., using a specific view or all paths) impacts the scoring.
 
