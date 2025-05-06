@@ -239,8 +239,7 @@ $$
 
 **Result:** Moderate score (**0.545**) reflecting precise but incomplete prediction—correctly capturing CWE-79 but missing CWE-89, CWE-352..
 
----
-Okay, let's create that example using the HCSS methodology and the CWE chains you provided.
+
 
 ---
 
