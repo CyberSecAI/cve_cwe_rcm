@@ -2,6 +2,8 @@
 
 Below is a proposal for a comprehensive scoring system for evaluating automated CVE-to-CWE assignments that addresses both the multi-label nature of the problem and the hierarchical structure of the CWE framework.
 
+See [A survey of Hierarchical Classification Standards](./hierarchical_scoring_system.md) for background context.
+
 ## 1. Core Design Principles
 
 The Hierarchical CWE Scoring System (HCSS) is designed with the following principles:
@@ -57,70 +59,115 @@ To determine ancestors for a CWE node:
 ### 3.2 Handling Special Cases
 
 - **Empty sets**: If Y or Ŷ is empty, handle accordingly (0 for precision when Ŷ is empty, 0 for recall when Y is empty)
-- **Root nodes**: Depending on analysis goals, you may exclude the root nodes from augmentation to avoid overly generous partial credit
-- **Different views**: The CWE can be viewed through different perspectives (e.g., CWE-1003); specify which view is being used for evaluation
+- **Root node**: The root node CWE-1000 is not included in the comparison sets. 
+  - If it was, it would result in overly generous partial credit even for a complete mismatch, since there is always 1 element (the root) common in both sets
+- **Different views**: The CWE can be viewed through different perspectives (e.g., CWE-1000 per https://riskbasedprioritization.github.io/cwe/cwe_views/) which should be used for evaluation.
 
 ## 4. Worked Examples
 
 ### Example 1: Single CWE, Exact Match
-**Benchmark**: CWE-79
-**Prediction**: CWE-79
 
-1. Augment sets (assuming ancestors of CWE-79 include CWE-74, CWE-707, CWE-20, CWE-1345):
-   - Y_aug = {CWE-79, CWE-74, CWE-707, CWE-20, CWE-1345}
-   - Ŷ_aug = {CWE-79, CWE-74, CWE-707, CWE-20, CWE-1345}
+- **Benchmark**: CWE-79
+- **Prediction**: CWE-79
+
+1. Augment sets (actual hierarchy: CWE-79 → CWE-74 → CWE-707 → CWE-1000, but excluding CWE-1000):
+
+   * Y\_aug = {CWE-79, CWE-74, CWE-707}
+   * Ŷ\_aug = {CWE-79, CWE-74, CWE-707}
 
 2. Calculate metrics:
-   - hP = |{CWE-79, CWE-74, CWE-707, CWE-20, CWE-1345}| / |{CWE-79, CWE-74, CWE-707, CWE-20, CWE-1345}| = 5/5 = 1.0
-   - hR = |{CWE-79, CWE-74, CWE-707, CWE-20, CWE-1345}| / |{CWE-79, CWE-74, CWE-707, CWE-20, CWE-1345}| = 5/5 = 1.0
-   - hF = 2 × 1.0 × 1.0 / (1.0 + 1.0) = 1.0
 
-Result: Perfect score of 1.0 for exact match.
+   * hP = |{CWE-79, CWE-74, CWE-707}| / |{CWE-79, CWE-74, CWE-707}| = 3/3 = 1.0
+   * hR = |{CWE-79, CWE-74, CWE-707}| / |{CWE-79, CWE-74, CWE-707}| = 3/3 = 1.0
+   * hF = 2 × 1.0 × 1.0 / (1.0 + 1.0) = 1.0
+
+**Result:** Perfect score (**1.0**) for exact match.
+
+---
 
 ### Example 2: Single CWE, No Match
-**Benchmark**: CWE-79
-**Prediction**: CWE-352 (unrelated to CWE-79)
 
-1. Augment sets (assuming ancestors of CWE-79 include CWE-74, CWE-707, CWE-20, CWE-1345, and ancestors of CWE-352 include CWE-1021, CWE-693):
-   - Y_aug = {CWE-79, CWE-74, CWE-707, CWE-20, CWE-1345}
-   - Ŷ_aug = {CWE-352, CWE-1021, CWE-693}
+- **Benchmark**: CWE-79
+- **Prediction**: CWE-352 (unrelated to CWE-79)
+
+1. Augment sets (excluding CWE-1000):
+
+   * Ancestors of CWE-79: CWE-79 → CWE-74 → CWE-707
+   * Ancestors of CWE-352: CWE-352 → CWE-345 → CWE-693
+   * Y\_aug = {CWE-79, CWE-74, CWE-707}
+   * Ŷ\_aug = {CWE-352, CWE-345, CWE-693}
 
 2. Calculate metrics:
-   - hP = |{}| / |{CWE-352, CWE-1021, CWE-693}| = 0/3 = 0.0
-   - hR = |{}| / |{CWE-79, CWE-74, CWE-707, CWE-20, CWE-1345}| = 0/5 = 0.0
-   - hF = 2 × 0.0 × 0.0 / (0.0 + 0.0) = 0.0 (by definition for 0/0)
 
-Result: Score of 0.0 for completely unrelated prediction.
+   * hP = |{}| / |{CWE-352, CWE-345, CWE-693}| = 0/3 = 0.0
+   * hR = |{}| / |{CWE-79, CWE-74, CWE-707}| = 0/3 = 0.0
+   * hF = 0.0 (by definition when precision and recall are zero)
+
+**Result:** Complete mismatch (**0.0**).
+
+---
 
 ### Example 3: Single CWE, Parent Relationship
-**Benchmark**: CWE-79
-**Prediction**: CWE-74 (parent of CWE-79)
 
-1. Augment sets:
-   - Y_aug = {CWE-79, CWE-74, CWE-707, CWE-20, CWE-1345}
-   - Ŷ_aug = {CWE-74, CWE-707, CWE-20, CWE-1345}
+- **Benchmark**: CWE-79
+- **Prediction**: CWE-74 (direct parent of CWE-79)
+
+1. Augment sets (excluding CWE-1000):
+
+   * Y\_aug = {CWE-79, CWE-74, CWE-707}
+   * Ŷ\_aug = {CWE-74, CWE-707}
 
 2. Calculate metrics:
-   - hP = |{CWE-74, CWE-707, CWE-20, CWE-1345}| / |{CWE-74, CWE-707, CWE-20, CWE-1345}| = 4/4 = 1.0
-   - hR = |{CWE-74, CWE-707, CWE-20, CWE-1345}| / |{CWE-79, CWE-74, CWE-707, CWE-20, CWE-1345}| = 4/5 = 0.8
-   - hF = 2 × 1.0 × 0.8 / (1.0 + 0.8) = 1.6/1.8 ≈ 0.889
 
-Result: High but not perfect score (0.889) for predicting the parent.
+   * hP = |{CWE-74, CWE-707}| / |{CWE-74, CWE-707}| = 2/2 = 1.0
+   * hR = |{CWE-74, CWE-707}| / |{CWE-79, CWE-74, CWE-707}| = 2/3 ≈ 0.667
+   * hF = 2 × 1.0 × 0.667 / (1.0 + 0.667) ≈ 1.334 / 1.667 ≈ 0.800
+
+**Result:** High but not perfect score (**0.800**) for parent prediction.
+
+---
+
 
 ### Example 4: Complex Multi-Label Case
-**Benchmark**: CWE-79, CWE-89
-**Prediction**: CWE-79, CWE-74, CWE-352
+- **Benchmark**: CWE-79, CWE-89
+- **Prediction**: CWE-79, CWE-74, CWE-352
 
-1. Augment sets (assuming additional ancestors: CWE-89 has ancestors CWE-943, CWE-707, CWE-20):
-   - Y_aug = {CWE-79, CWE-89, CWE-74, CWE-707, CWE-20, CWE-1345, CWE-943}
-   - Ŷ_aug = {CWE-79, CWE-74, CWE-352, CWE-707, CWE-20, CWE-1345, CWE-1021, CWE-693}
+1. **Augment sets** (using the provided chains, excluding CWE-1000):
 
-2. Calculate metrics:
-   - hP = |{CWE-79, CWE-74, CWE-707, CWE-20, CWE-1345}| / |{CWE-79, CWE-74, CWE-352, CWE-707, CWE-20, CWE-1345, CWE-1021, CWE-693}| = 5/8 = 0.625
-   - hR = |{CWE-79, CWE-74, CWE-707, CWE-20, CWE-1345}| / |{CWE-79, CWE-89, CWE-74, CWE-707, CWE-20, CWE-1345, CWE-943}| = 5/7 ≈ 0.714
-   - hF = 2 × 0.625 × 0.714 / (0.625 + 0.714) = 0.893/1.339 ≈ 0.667
+* Ancestors of **CWE-79**: CWE-79 → CWE-74 → CWE-707
+* Ancestors of **CWE-89**: CWE-89 → CWE-943 → CWE-74 → CWE-707
+* Ancestors of **CWE-352**: CWE-352 → CWE-345 → CWE-693
 
-Result: Moderate score (0.667) reflecting partial success - correct prediction of CWE-79 but missing CWE-89 and adding an unrelated CWE-352.
+Thus:
+
+* **Y\_aug** (Benchmark set) = {CWE-79, CWE-89, CWE-74, CWE-707, CWE-943}
+* **Ŷ\_aug** (Prediction set) = {CWE-79, CWE-74, CWE-707, CWE-352, CWE-345, CWE-693}
+
+2. **Calculate metrics**:
+
+* Intersection: {CWE-79, CWE-74, CWE-707}
+* Precision (**hP**):
+
+$$
+\frac{| \{CWE-79, CWE-74, CWE-707\} |}{| \{CWE-79, CWE-74, CWE-707, CWE-352, CWE-345, CWE-693\} |} = \frac{3}{6} = 0.500
+$$
+
+* Recall (**hR**):
+
+$$
+\frac{| \{CWE-79, CWE-74, CWE-707\} |}{| \{CWE-79, CWE-89, CWE-74, CWE-707, CWE-943\} |} = \frac{3}{5} = 0.600
+$$
+
+* F-score (**hF**):
+
+$$
+\frac{2 \times 0.500 \times 0.600}{(0.500 + 0.600)} = \frac{0.600}{1.100} \approx 0.545
+$$
+
+**Result:** Moderate score (**0.545**) due to correctly predicting CWE-79 and its ancestors but failing to predict CWE-89 and adding unrelated CWEs (CWE-352).
+
+---
+
 
 ## 5. Advantages of HCSS
 
@@ -137,6 +184,5 @@ Result: Moderate score (0.667) reflecting partial success - correct prediction o
 2. Consider implementing optional weights for edges based on abstraction levels
 3. Provide both micro and macro-averaged scores for comprehensive evaluation
 4. Include standard metrics alongside HCSS for comparative context
-5. Document the specific CWE view (e.g., CWE-1003) used for evaluation
 
 This HCSS framework provides a robust, theoretically sound approach to evaluating automated CVE-to-CWE assignments, directly addressing the multi-label and hierarchical nature of the problem.
