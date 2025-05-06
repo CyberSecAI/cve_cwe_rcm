@@ -3,20 +3,16 @@
 
 ## 1. Introduction
 
-### 1.1. Context: The Imperative for Automated CVE-to-CWE Mapping
 
-The landscape of cybersecurity is characterized by a continuously expanding volume of publicly disclosed vulnerabilities, cataloged as Common Vulnerabilities and Exposures (CVEs). Effectively managing these vulnerabilities necessitates not only identifying their existence but also understanding their fundamental nature and root causes, which are categorized by the Common Weakness Enumeration (CWE) system. Linking CVEs to their corresponding CWEs provides crucial context for risk assessment, prioritization of remediation efforts, and informing secure software development practices to prevent similar flaws in the future.
-
-However, the sheer scale of vulnerability disclosure, potentially involving thousands of new CVEs each month, renders manual CVE-to-CWE mapping a resource-intensive, time-consuming, and potentially inconsistent process. This operational bottleneck underscores the critical need for automated solutions capable of accurately and efficiently assigning CWE identifiers to CVE entries. Furthermore, CWEs serve a vital role beyond reactive vulnerability management; they provide a common language and framework for developers, architects, and security professionals to proactively address the root causes of vulnerabilities during the software development lifecycle (SDLC), shifting focus from mere symptom management (fixing CVEs) to systemic prevention (eliminating CWEs).
-
-### 1.2. Problem Statement: Limitations of Traditional Evaluation
+### 1.1. Problem Statement: Limitations of Traditional Evaluation
 
 Evaluating the performance of automated CVE-to-CWE assignment tools presents unique challenges that standard classification metrics fail to adequately address. The complexity arises primarily from two intrinsic characteristics of the CVE-CWE relationship:
 
 * **Multi-Label Nature:** A single CVE does not necessarily map to just one CWE. A specific vulnerability instance (CVE) can arise from the confluence of multiple underlying weaknesses, meaning it may correctly map to a set of CWE identifiers. This multi-label classification scenario invalidates evaluation approaches designed for single-label problems.
+  
 * **Hierarchical Structure:** The MITRE CWE list is not a flat collection of independent categories but a structured hierarchy, often represented as a tree or Directed Acyclic Graph (DAG), with defined relationships like parent-child connections. Consequently, prediction errors are not uniform in severity. A predicted CWE that is hierarchically close to a true CWE (e.g., its direct parent or child) represents a more accurate understanding of the weakness than a prediction mapping to a completely unrelated part of the hierarchy. Traditional exact-match evaluation metrics penalize both types of errors equally, failing to capture the nuanced semantic distance between CWEs.
 
-### 1.3. Objective: Designing the Hierarchical CWE Scoring System (HCSS)
+### 1.2. Objective: Designing the Hierarchical CWE Scoring System (HCSS)
 
 The primary objective of this report is to design a Hierarchical CWE Scoring System (HCSS) capable of providing a fair, nuanced, and comprehensive evaluation framework for automated CVE-to-CWE assignment solutions. The HCSS aims to overcome the limitations of traditional metrics by explicitly addressing the multi-label and hierarchical nature of the problem.
 
@@ -32,7 +28,17 @@ The key design requirements for the HCSS are:
 
 ### 1.4. Report Roadmap
 
-This report systematically addresses the design of the HCSS. Section 2 examines the relationship between CVEs and CWEs, focusing on the mapping process and its multi-label nature. Section 3 delves into the structure and semantics of the MITRE CWE hierarchy. Section 4 discusses the requirements and methods for creating reliable benchmark datasets. Section 5 reviews standard multi-label and specialized hierarchical classification evaluation metrics. Section 6 explores various methods for quantifying semantic distance within the CWE hierarchy. Section 7 analyzes existing practices in evaluating CWE assignment tools and related scoring systems. Section 8 presents the detailed design of the proposed HCSS, integrating findings from previous sections. Finally, Section 9 provides concluding remarks and suggests directions for future work.
+This report systematically addresses the design of the HCSS. 
+
+-  Section 2 examines the relationship between CVEs and CWEs, focusing on the mapping process and its multi-label nature. 
+-  Section 3 delves into the structure and semantics of the MITRE CWE hierarchy.
+-  Section 4 discusses the requirements and methods for creating reliable benchmark datasets. 
+-  Section 5 reviews standard multi-label and specialized hierarchical classification evaluation metrics. 
+-  Section 6 explores various methods for quantifying semantic distance within the CWE hierarchy. 
+-  Section 7 analyzes existing practices in evaluating CWE assignment tools and related scoring systems. 
+-  Section 8 presents the detailed design of the proposed HCSS, integrating findings from previous sections. 
+-  Section 9 provides concluding remarks and suggests directions for future work.
+-  Section 10 links to relevant research.
 
 ## 2. The CVE-CWE Ecosystem: Foundation and Mapping Dynamics
 
