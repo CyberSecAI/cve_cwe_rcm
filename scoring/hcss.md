@@ -240,7 +240,133 @@ $$
 **Result:** Moderate score (**0.545**) reflecting precise but incomplete prediction—correctly capturing CWE-79 but missing CWE-89, CWE-352..
 
 ---
+Okay, let's create that example using the HCSS methodology and the CWE chains you provided.
 
+---
+
+### Example 7: Complex Multi-Label Case with Multiple Paths and Partial Matches
+
+> [!NOTE]  
+> CWE-798 appears in 3 different chains. 
+> 
+> This raises the question on which chain(s) do we use
+> - the shortest chain?
+> - all the chains?
+> - a selected chain? 
+>
+> For one chain:
+> - If a Predicted CWE is a ancestor/descendant of a Benchmark CWE then this uniquely identifies the chain.
+> - If a Predicted CWE equals the Benchmark CWE then we still need to pick a chain
+>
+> For all chains:
+> - the logic is the same always
+> - the Recall and F1 will be lower if the CWE that appears in multiple chains is in the Predicted set
+
+
+#### Using all 3 chains for CWE-798
+-   **Benchmark**: CWE-912, CWE-798
+-   **Prediction**: CWE-321, CWE-912
+
+We will use the following CWE chains provided (excluding "CWE View 1000 Root"):
+
+* CWE-912 Chain: `CWE-710 > CWE-684 > CWE-912`
+* CWE-798 Chains:
+    * Chain 1: `CWE-710 > CWE-657 > CWE-671 > CWE-798`
+    * Chain 2: `CWE-284 > CWE-287 > CWE-1390 > CWE-1391 > CWE-798`
+    * Chain 3: `CWE-693 > CWE-330 > CWE-344 > CWE-798`
+* CWE-321 Chain: `CWE-284 > CWE-287 > CWE-1390 > CWE-1391 > CWE-798 > CWE-321`
+
+1.  **Augment sets** (excluding CWE-1000 Root):
+
+    * **Benchmark set (Y)** = {CWE-912, CWE-798}
+        * Ancestors of CWE-912: {CWE-710, CWE-684}
+        * Ancestors of CWE-798 (from all paths where it's a descendant): {CWE-710, CWE-657, CWE-671, CWE-284, CWE-287, CWE-1390, CWE-1391, CWE-693, CWE-330, CWE-344}
+        * **Y\_aug** = Y $\cup$ Ancestors(Y) = {CWE-912, CWE-798} $\cup$ {CWE-710, CWE-684} $\cup$ {CWE-710, CWE-657, CWE-671} $\cup$ {CWE-284, CWE-287, CWE-1390, CWE-1391} $\cup$ {CWE-693, CWE-330, CWE-344}
+        * **Y\_aug** = {CWE-912, CWE-798, CWE-710, CWE-684, CWE-657, CWE-671, CWE-284, CWE-287, CWE-1390, CWE-1391, CWE-693, CWE-330, CWE-344}
+        * $|Y_{aug}| = 13$
+
+    * **Prediction set (Ŷ)** = {CWE-321, CWE-912}
+        * Ancestors of CWE-321: {CWE-798, CWE-1391, CWE-1390, CWE-287, CWE-284}
+        * Ancestors of CWE-912: {CWE-710, CWE-684}
+        * **Ŷ\_aug** = Ŷ $\cup$ Ancestors(Ŷ) = {CWE-321, CWE-912} $\cup$ {CWE-798, CWE-1391, CWE-1390, CWE-287, CWE-284} $\cup$ {CWE-710, CWE-684}
+        * **Ŷ\_aug** = {CWE-321, CWE-912, CWE-798, CWE-1391, CWE-1390, CWE-287, CWE-284, CWE-710, CWE-684}
+        * $|\hat{Y}_{aug}| = 9$
+
+2.  **Calculate metrics**:
+
+    * Intersection: $Y_{aug} \cap \hat{Y}_{aug}$ = {CWE-912, CWE-798, CWE-710, CWE-684, CWE-284, CWE-287, CWE-1390, CWE-1391}
+    * $|Y_{aug} \cap \hat{Y}_{aug}| = 8$
+
+    * Precision (**hP**):
+        $$
+        \frac{| Y_{aug} \cap \hat{Y}_{aug} |}{| \hat{Y}_{aug} |} = \frac{8}{9} \approx 0.889
+        $$
+
+    * Recall (**hR**):
+        $$
+        \frac{| Y_{aug} \cap \hat{Y}_{aug} |}{| Y_{aug} |} = \frac{8}{13} \approx 0.615
+        $$
+
+    * F-score (**hF**):
+        $$
+        \frac{2 \times hP \times hR}{(hP + hR)} = \frac{2 \times 0.889 \times 0.615}{(0.889 + 0.615)} = \frac{1.093}{1.504} \approx 0.727
+        $$
+
+**Result:** A score of approximately **0.727**. The prediction correctly identified CWE-912 and its ancestors, partially captured CWE-798 by predicting its child (CWE-321) and some shared ancestors, but missed other paths leading to CWE-798 and its specific ancestors on those paths.
+
+#### Using 1 of 3 chains for CWE-798
+
+Here we recalculate Example 7, but this time applying the constraint that for CWE-798 in the benchmark set, we **only** use the ancestors from the chain `CWE View 1000 Root > CWE-284 > CWE-287 > CWE-1390 > CWE-1391 > CWE-798`.
+
+The scenario is:
+-   **Benchmark**: CWE-912, CWE-798
+-   **Prediction**: CWE-321, CWE-912
+
+We use the following chains (excluding "CWE View 1000 Root"):
+
+* CWE-912 Chain: `CWE-710 > CWE-684 > CWE-912`
+* CWE-798 Chain **(for Benchmark ONLY, constrained)**: `CWE-284 > CWE-287 > CWE-1390 > CWE-1391 > CWE-798`
+* CWE-321 Chain (relevant for Prediction): `CWE-284 > CWE-287 > CWE-1390 > CWE-1391 > CWE-798 > CWE-321`
+* CWE-912 Chain (relevant for Prediction): `CWE-710 > CWE-684 > CWE-912`
+
+1.  **Augment sets** (excluding CWE-1000 Root, with the constraint on Benchmark CWE-798):
+
+    * **Benchmark set (Y)** = {CWE-912, CWE-798}
+        * Ancestors of CWE-912: {CWE-710, CWE-684}
+        * Ancestors of CWE-798 **(using only the specified chain)**: {CWE-284, CWE-287, CWE-1390, CWE-1391}
+        * **Y\_aug** = Y $\cup$ Ancestors(CWE-912) $\cup$ Ancestors(CWE-798 constrained)
+        * **Y\_aug** = {CWE-912, CWE-798} $\cup$ {CWE-710, CWE-684} $\cup$ {CWE-284, CWE-287, CWE-1390, CWE-1391}
+        * **Y\_aug** = {CWE-912, CWE-798, CWE-710, CWE-684, CWE-284, CWE-287, CWE-1390, CWE-1391}
+        * $|Y_{aug}| = 8$
+
+    * **Prediction set (Ŷ)** = {CWE-321, CWE-912}
+        * Ancestors of CWE-321: {CWE-798, CWE-1391, CWE-1390, CWE-287, CWE-284}
+        * Ancestors of CWE-912: {CWE-710, CWE-684}
+        * **Ŷ\_aug** = Ŷ $\cup$ Ancestors(Ŷ) = {CWE-321, CWE-912} $\cup$ {CWE-798, CWE-1391, CWE-1390, CWE-287, CWE-284} $\cup$ {CWE-710, CWE-684}
+        * **Ŷ\_aug** = {CWE-321, CWE-912, CWE-798, CWE-1391, CWE-1390, CWE-287, CWE-284, CWE-710, CWE-684}
+        * $|\hat{Y}_{aug}| = 9$
+
+2.  **Calculate metrics**:
+
+    * Intersection: $Y_{aug} \cap \hat{Y}_{aug}$ = {CWE-912, CWE-798, CWE-710, CWE-684, CWE-284, CWE-287, CWE-1390, CWE-1391}
+    * $|Y_{aug} \cap \hat{Y}_{aug}| = 8$
+
+    * Precision (**hP**):
+        $$
+        \frac{| Y_{aug} \cap \hat{Y}_{aug} |}{| \hat{Y}_{aug} |} = \frac{8}{9} \approx 0.889
+        $$
+
+    * Recall (**hR**):
+        $$
+        \frac{| Y_{aug} \cap \hat{Y}_{aug} |}{| Y_{aug} |} = \frac{8}{8} = 1.0
+        $$
+
+    * F-score (**hF**):
+        $$
+        \frac{2 \times hP \times hR}{(hP + hR)} = \frac{2 \times 0.889 \times 1.0}{(0.889 + 1.0)} = \frac{1.778}{1.889} \approx 0.941
+        $$
+
+**Result:** A score of approximately **0.941**. Restricting the ancestors of CWE-798 in the benchmark set to a single chain significantly increased the Recall and the overall F-score in this specific example, as the prediction happened to align well with the ancestors on that particular chain. This highlights how the choice of hierarchy representation (e.g., using a specific view or all paths) impacts the scoring.
 
 ## 5. Advantages of HCSS
 
