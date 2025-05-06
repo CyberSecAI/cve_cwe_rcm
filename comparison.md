@@ -24,33 +24,19 @@
 
 <a id="REQ_ALGO_PARTIAL_CREDIT"></a>**REQ_ALGO_PARTIAL_CREDIT**: The comparison algorithm MUST support partial credit for related but non-exact CWE matches.
 
-<a id="REQ_ALGO_CONFIGURABLE"></a>**REQ_ALGO_CONFIGURABLE**: The comparison algorithm MUST be configurable to allow different weighting schemes for different types of matches.
-
 <a id="REQ_ALGO_EXPLAINABLE"></a>**REQ_ALGO_EXPLAINABLE**: The comparison algorithm MUST provide explanations for why specific matches were scored in a particular way.
 
 ## CWE Matching Requirements
 
 <a id="REQ_MATCH_EXACT"></a>**REQ_MATCH_EXACT**: The algorithm MUST identify and give full credit (score = 1.0) for exact CWE ID matches.
 
-<a id="REQ_MATCH_PARENT_CHILD"></a>**REQ_MATCH_PARENT_CHILD**: The algorithm MUST identify and score direct parent-child relationships in the CWE hierarchy (e.g., score = 0.8-0.9).
-
-<a id="REQ_MATCH_ANCESTOR"></a>**REQ_MATCH_ANCESTOR**: The algorithm MUST identify and score indirect ancestor-descendant relationships (e.g., grandparent, score = 0.5-0.7).
-
-<a id="REQ_MATCH_COUSIN"></a>**REQ_MATCH_COUSIN**: The algorithm MUST identify and score "cousin" relationships where CWEs share a common parent or grandparent (e.g., score = 0.4-0.6).
-
 <a id="REQ_MATCH_UNRELATED"></a>**REQ_MATCH_UNRELATED**: The algorithm MUST identify unrelated CWEs (different branches with no close common ancestor) and give no credit (score = 0).
 
 <a id="REQ_MATCH_CUSTOMIZABLE"></a>**REQ_MATCH_CUSTOMIZABLE**: The algorithm MUST allow customizable weights for each degree of match to compute similarity scores.
 
-<a id="REQ_MATCH_CWE_GRAPH"></a>**REQ_MATCH_CWE_GRAPH**: The algorithm MUST use the official CWE graph or equivalent data structure to determine relationships between CWEs.
-
-<a id="REQ_MATCH_RELATIONSHIP_TYPES"></a>**REQ_MATCH_RELATIONSHIP_TYPES**: The algorithm SHOULD consider CWE relationship types beyond ParentOf/ChildOf, such as PeerOf, CanPrecede/CanFollow, and RequiredBy/Requires when available.
+<a id="REQ_MATCH_CWE_GRAPH"></a>**REQ_MATCH_CWE_GRAPH**: The algorithm MUST use the official [CWE 1000 View graph](https://riskbasedprioritization.github.io/cwe/cwe_views/) to determine relationships between CWEs.
 
 ## Multiple CWE Handling Requirements
-
-<a id="REQ_MULTI_PAIRWISE"></a>**REQ_MULTI_PAIRWISE**: The algorithm MUST implement pairwise matching between elements of predicted and gold CWE sets.
-
-<a id="REQ_MULTI_OPTIMAL"></a>**REQ_MULTI_OPTIMAL**: The algorithm MUST ensure each gold CWE is matched to at most one predicted CWE and vice versa to avoid double-counting.
 
 <a id="REQ_MULTI_BEST_MATCH"></a>**REQ_MULTI_BEST_MATCH**: For cases where multiple matches are possible, the algorithm MUST select the match that yields the highest similarity score.
 

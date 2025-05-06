@@ -57,6 +57,8 @@ flowchart TD
     C 
     G[Benchmark Dataset Guidance] -->|Guides implementation of| A[Benchmark Dataset]
     H[Assigned CWE Dataset] -->|Dataset to evaluate| C[Evaluation Tool]
+    J[Scoring Algorithms] -->|Scoring Logic| C[Evaluation Tool]
+
 
     C[Evaluation Tool] --> |Outputs| I[Evaluation Results]
     I[Evaluation Results]-->|Ranked on| F[Leaderboard]
@@ -73,6 +75,7 @@ flowchart TD
     click G "https://github.com/CyberSecAI/cve_cwe_rcm/blob/main/dataset.md" "View Dataset Requirements"
     click E "https://github.com/CyberSecAI/cve_cwe_rcm/blob/main/comparison.md" "View Dataset Requirements"
     click D "https://github.com/CyberSecAI/cve_cwe_rcm/blob/main/tool_guidance.md" "View Dataset Requirements"
+    click J "https://github.com/CyberSecAI/cve_cwe_rcm/blob/main/scoring/README.md" "View Scoring Approaches"
 
 ````
 
@@ -86,6 +89,8 @@ See [dataset requirements](dataset.md) that defines characteristics that address
 ### Benchmark Comparison Algorithm
 
 See [comparison requirements](comparison.md).
+
+See [scoring algorithms](scoring/README.md)
 
 ### Guidance on Implementing Tools
 
