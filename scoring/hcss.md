@@ -127,7 +127,6 @@ To determine ancestors for a CWE node:
 
 ---
 
-
 ### Example 4: Complex Multi-Label Case
 - **Benchmark**: CWE-79, CWE-89
 - **Prediction**: CWE-79, CWE-74, CWE-352
@@ -165,6 +164,47 @@ $$
 $$
 
 **Result:** Moderate score (**0.545**) due to correctly predicting CWE-79 and its ancestors but failing to predict CWE-89 and adding unrelated CWEs (CWE-352).
+
+---
+
+### Example 5: Complex Multi-Label Case with Missing and Partial Matches
+
+- **Benchmark**: CWE-79, CWE-89, CWE-352
+- **Prediction**: CWE-79, CWE-74
+
+1. **Augment sets** (using provided hierarchy, excluding CWE-1000):
+
+* Ancestors of **CWE-79**: CWE-79 → CWE-74 → CWE-707
+* Ancestors of **CWE-89**: CWE-89 → CWE-943 → CWE-74 → CWE-707
+* Ancestors of **CWE-352**: CWE-352 → CWE-345 → CWE-693
+
+Thus:
+
+* **Y\_aug** (Benchmark set) = {CWE-79, CWE-89, CWE-352, CWE-74, CWE-707, CWE-943, CWE-345, CWE-693}
+* **Ŷ\_aug** (Prediction set) = {CWE-79, CWE-74, CWE-707}
+
+2. **Calculate metrics**:
+
+* Intersection: {CWE-79, CWE-74, CWE-707}
+* Precision (**hP**):
+
+$$
+\frac{| \{CWE-79, CWE-74, CWE-707\} |}{| \{CWE-79, CWE-74, CWE-707\} |} = \frac{3}{3} = 1.0
+$$
+
+* Recall (**hR**):
+
+$$
+\frac{| \{CWE-79, CWE-74, CWE-707\} |}{| \{CWE-79, CWE-89, CWE-352, CWE-74, CWE-707, CWE-943, CWE-345, CWE-693\} |} = \frac{3}{8} = 0.375
+$$
+
+* F-score (**hF**):
+
+$$
+\frac{2 \times 1.0 \times 0.375}{(1.0 + 0.375)} = \frac{0.75}{1.375} \approx 0.545
+$$
+
+**Result:** Moderate score (**0.545**) reflecting precise but incomplete prediction—correctly capturing CWE-79 but missing CWE-89, CWE-352..
 
 ---
 
