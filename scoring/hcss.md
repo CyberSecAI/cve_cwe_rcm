@@ -1,6 +1,6 @@
 # Hierarchical CWE Scoring System (HCSS)
 
-Based on the information provided, I'll propose a comprehensive scoring system for evaluating automated CVE-to-CWE assignments that addresses both the multi-label nature of the problem and the hierarchical structure of the CWE framework.
+Below is a proposal for a comprehensive scoring system for evaluating automated CVE-to-CWE assignments that addresses both the multi-label nature of the problem and the hierarchical structure of the CWE framework.
 
 ## 1. Core Design Principles
 
