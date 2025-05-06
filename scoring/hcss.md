@@ -83,9 +83,42 @@ To determine ancestors for a CWE node:
 
 **Result:** Perfect score (**1.0**) for exact match.
 
+
 ---
 
-### Example 2: Single CWE, No Match
+### Example 2: Single CWE, Parent Relationship
+
+-   **Benchmark**: CWE-79
+-   **Prediction**: CWE-74 (direct parent of CWE-79)
+
+1.  **Augment sets** (using the hierarchy: CWE-79 → CWE-74 → CWE-707, excluding CWE-1000):
+
+    * Ancestors of CWE-79 are CWE-74 and CWE-707.
+    * **Y\_aug** (Benchmark set) = {CWE-79, CWE-74, CWE-707}
+    * Ancestors of CWE-74 are CWE-707.
+    * **Ŷ\_aug** (Prediction set) = {CWE-74, CWE-707}
+
+2.  **Calculate metrics**:
+
+    * Intersection: $Y_{aug} \cap \hat{Y}_{aug} = \{CWE-79, CWE-74, CWE-707\} \cap \{CWE-74, CWE-707\} = \{CWE-74, CWE-707\}$
+    * Precision (**hP**):
+        $$
+        \frac{|\{CWE-74, CWE-707\}|}{|\{CWE-74, CWE-707\}|} = \frac{2}{2} = 1.0
+        $$
+    * Recall (**hR**):
+        $$
+        \frac{|\{CWE-74, CWE-707\}|}{|\{CWE-79, CWE-74, CWE-707\}|} = \frac{2}{3} \approx 0.667
+        $$
+    * F-score (**hF**):
+        $$
+        \frac{2 \times 1.0 \times 0.667}{(1.0 + 0.667)} = \frac{1.334}{1.667} \approx 0.800
+        $$
+
+**Result:** High but not perfect score (**0.800**) for predicting a direct parent.
+
+---
+
+### Example 3: Single CWE, No Match
 
 - **Benchmark**: CWE-79
 - **Prediction**: CWE-352 (unrelated to CWE-79)
@@ -107,7 +140,7 @@ To determine ancestors for a CWE node:
 
 ---
 
-### Example 3: Single CWE, Parent Relationship
+### Example 4: Single CWE, Parent Relationship
 
 - **Benchmark**: CWE-79
 - **Prediction**: CWE-74 (direct parent of CWE-79)
@@ -127,7 +160,7 @@ To determine ancestors for a CWE node:
 
 ---
 
-### Example 4: Complex Multi-Label Case
+### Example 5: Complex Multi-Label Case
 - **Benchmark**: CWE-79, CWE-89
 - **Prediction**: CWE-79, CWE-74, CWE-352
 
@@ -167,7 +200,7 @@ $$
 
 ---
 
-### Example 5: Complex Multi-Label Case with Missing and Partial Matches
+### Example 6: Complex Multi-Label Case with Missing and Partial Matches
 
 - **Benchmark**: CWE-79, CWE-89, CWE-352
 - **Prediction**: CWE-79, CWE-74
