@@ -260,6 +260,11 @@ $$
 > For all chains:
 > - the logic is the same always
 > - the Recall and F1 will be lower if the CWE that appears in multiple chains is in the Predicted set
+>
+> **For CWEs with multiple parents, the “best” answer for mapping is the Primary parent**. 
+> - Each weakness can have one and only one ChildOf relationship that’s labeled “Primary” for each view.
+
+
 
 
 #### Using all 3 chains for CWE-798
